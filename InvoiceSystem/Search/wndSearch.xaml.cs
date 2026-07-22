@@ -17,9 +17,13 @@ namespace InvoiceSystem.Search
     /// </summary>
     public partial class wndSearch : Window
     {
+
+        // Create a list of invoices populated from the data base
         public wndSearch()
         {
             InitializeComponent();
+            // Populate the datagrid using the list of invoices
+            // dgInvoiceDisplay.ItemsSource = InvoicesManager.GetInvoices();
         }
     }
 }

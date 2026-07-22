@@ -8,47 +8,47 @@ namespace InvoiceSystem.Search
     {
 
         // This GetInvoices method has 3 optional parameters. By default, each is set to an empty string.
-        // If only one of the filters needs to be applied, such as dateFilter, then you simply pass in
+        // If only one of the filters needs to be applied, such as InvoiceDate, then you simply pass in
         // an empty string for the other two parameters, i.e. GetInvoices("", "2026-05-03", "");
 
         /// <summary>
         /// Conditionally returns required SQL Query string based on applied filters
         /// </summary>
-        /// <param name="invoiceNumFilter"></param>
-        /// <param name="dateFilter"></param>
-        /// <param name="costFilter"></param>
+        /// <param name="InvoiceNum"></param>
+        /// <param name="InvoiceDate"></param>
+        /// <param name="TotalCost"></param>
         /// <returns></returns>
-        public string GetInvoices(string invoiceNumFilter = "", string dateFilter = "", string costFilter = "")
+        public string GetInvoices(string InvoiceNum = "", string InvoiceDate = "", string TotalCost = "")
         {
             string query = "SELECT * FROM Invoices";
 
-            if (invoiceNumFilter != "" && dateFilter == "" && costFilter == "") // Only invoiceNumFilter
+            if (InvoiceNum != "" && InvoiceDate == "" && TotalCost == "") // Only InvoiceNum
             {
-                query += $" WHERE InvoiceNum = {invoiceNumFilter}";
+                query += $" WHERE InvoiceNum = {InvoiceNum}";
             }
-            else if (invoiceNumFilter == "" && dateFilter != "" && costFilter == "") // Only dateFilter
+            else if (InvoiceNum == "" && InvoiceDate != "" && TotalCost == "") // Only InvoiceDate
             {
-                query += $" WHERE InvoiceDate = {dateFilter}";
+                query += $" WHERE InvoiceDate = {InvoiceDate}";
             }
-            else if (invoiceNumFilter == "" && dateFilter == "" && costFilter != "") // Only costFilter
+            else if (InvoiceNum == "" && InvoiceDate == "" && TotalCost != "") // Only TotalCost
             {
-                query += $" WHERE TotalCost = {costFilter}";
+                query += $" WHERE TotalCost = {TotalCost}";
             }
-            else if (invoiceNumFilter != "" && dateFilter != "" && costFilter == "") // Only invoiceNumFilter and dateFilter 
+            else if (InvoiceNum != "" && InvoiceDate != "" && TotalCost == "") // Only InvoiceNum and InvoiceDate 
             {
-                query += $" WHERE InvoiceNum = {invoiceNumFilter} AND InvoiceDate = {dateFilter}";
+                query += $" WHERE InvoiceNum = {InvoiceNum} AND InvoiceDate = {InvoiceDate}";
             }
-            else if (invoiceNumFilter != "" && dateFilter == "" && costFilter != "") // Only invoiceNumFilter and costFilter
+            else if (InvoiceNum != "" && InvoiceDate == "" && TotalCost != "") // Only InvoiceNum and TotalCost
             {
-                query += $" WHERE InvoiceNum = {invoiceNumFilter} AND TotalCost = {costFilter}";
+                query += $" WHERE InvoiceNum = {InvoiceNum} AND TotalCost = {TotalCost}";
             }
-            else if (invoiceNumFilter == "" && dateFilter != "" && costFilter != "") // Only dateFilter and costFilter
+            else if (InvoiceNum == "" && InvoiceDate != "" && TotalCost != "") // Only InvoiceDate and TotalCost
             {
-                query += $" WHERE InvoiceDate = {dateFilter} AND TotalCost = {costFilter}";
+                query += $" WHERE InvoiceDate = {InvoiceDate} AND TotalCost = {TotalCost}";
             }
-            else if (invoiceNumFilter != "" && dateFilter != "" && costFilter != "") // All three filters
+            else if (InvoiceNum != "" && InvoiceDate != "" && TotalCost != "") // All three filters
             {
-                query += $" WHERE InvoiceNum = {invoiceNumFilter} AND InvoiceDate = {dateFilter} AND TotalCost = {costFilter}";
+                query += $" WHERE InvoiceNum = {InvoiceNum} AND InvoiceDate = {InvoiceDate} AND TotalCost = {TotalCost}";
             }
 
 

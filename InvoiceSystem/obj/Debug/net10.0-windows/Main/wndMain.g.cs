@@ -53,7 +53,7 @@ namespace InvoiceSystem.Main {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/InvoiceSystem;V1.0.0.0;component/main/wndmain.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/InvoiceSystem;component/main/wndmain.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Main\wndMain.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

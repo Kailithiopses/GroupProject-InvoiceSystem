@@ -9,5 +9,19 @@
     <Grid>
         <DataGrid x:Name="dgInvoiceDisplay" d:ItemsSource="{d:SampleData ItemCount=5}" Width="Auto" Height="Auto" Margin="36,199,264,35"/>
 
+
+        <Label Content="Filter by ID" HorizontalAlignment="Left" Margin="86,45,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cbInvoiceNumFilter" HorizontalAlignment="Left" Margin="57,92,0,0" VerticalAlignment="Top" Width="120"/>
+
+        <Label Content="Filter by Date" HorizontalAlignment="Left" Margin="246,45,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cbInvoiceDateFilter" HorizontalAlignment="Left" Margin="226,92,0,0" VerticalAlignment="Top" Width="120"/>
+
+        <Label Content="Filter by Total Cost" HorizontalAlignment="Left" Margin="400,45,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cbInvoiceTotalCostFilter" HorizontalAlignment="Left" Margin="400,92,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnClearFilter" Content="Clear Filter" HorizontalAlignment="Left" Margin="667,133,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnSelectInvoice" Content="Select Invoice" HorizontalAlignment="Left" Margin="667,264,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="667,329,0,0" VerticalAlignment="Top"/>
+
+
     </Grid>
 </Window>

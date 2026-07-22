@@ -25,5 +25,10 @@ namespace InvoiceSystem.Search
             // Populate the datagrid using the list of invoices
             // dgInvoiceDisplay.ItemsSource = InvoicesManager.GetInvoices();
         }
+
+
+        // sSelectedInvoiceID - Holds the invoice ID if the user selected one, and zero if no invoice selected.
+        // SelectedInvoiceID - Property main window can access to get the selected invoice ID
+
     }
 }

@@ -9,7 +9,7 @@ namespace InvoiceSystem.Search
 
         // This GetInvoices method has 3 optional parameters. By default, each is set to an empty string.
         // If only one of the filters needs to be applied, such as InvoiceDate, then you simply pass in
-        // an empty string for the other two parameters, i.e. GetInvoices("", "2026-05-03", "");
+        // null for the other two parameters, i.e. GetInvoices(null, "2026-05-03", null);
 
         /// <summary>
         /// Conditionally returns required SQL Query string based on applied filters
@@ -18,35 +18,35 @@ namespace InvoiceSystem.Search
         /// <param name="InvoiceDate"></param>
         /// <param name="TotalCost"></param>
         /// <returns></returns>
-        public string GetInvoices(string InvoiceNum = "", string InvoiceDate = "", string TotalCost = "")
+        public string GetInvoices(string InvoiceNum = null, string InvoiceDate = null, string TotalCost = null)
         {
             string query = "SELECT * FROM Invoices";
 
-            if (InvoiceNum != "" && InvoiceDate == "" && TotalCost == "") // Only InvoiceNum
+            if (InvoiceNum is not null && InvoiceDate is null && TotalCost is null) // Only InvoiceNum
             {
                 query += $" WHERE InvoiceNum = {InvoiceNum}";
             }
-            else if (InvoiceNum == "" && InvoiceDate != "" && TotalCost == "") // Only InvoiceDate
+            else if (InvoiceNum is null && InvoiceDate is not null && TotalCost is null) // Only InvoiceDate
             {
                 query += $" WHERE InvoiceDate = {InvoiceDate}";
             }
-            else if (InvoiceNum == "" && InvoiceDate == "" && TotalCost != "") // Only TotalCost
+            else if (InvoiceNum is null && InvoiceDate is null && TotalCost is not null) // Only TotalCost
             {
                 query += $" WHERE TotalCost = {TotalCost}";
             }
-            else if (InvoiceNum != "" && InvoiceDate != "" && TotalCost == "") // Only InvoiceNum and InvoiceDate 
+            else if (InvoiceNum is not null && InvoiceDate is not null && TotalCost is null) // Only InvoiceNum and InvoiceDate 
             {
                 query += $" WHERE InvoiceNum = {InvoiceNum} AND InvoiceDate = {InvoiceDate}";
             }
-            else if (InvoiceNum != "" && InvoiceDate == "" && TotalCost != "") // Only InvoiceNum and TotalCost
+            else if (InvoiceNum is not null && InvoiceDate is null && TotalCost is not null) // Only InvoiceNum and TotalCost
             {
                 query += $" WHERE InvoiceNum = {InvoiceNum} AND TotalCost = {TotalCost}";
             }
-            else if (InvoiceNum == "" && InvoiceDate != "" && TotalCost != "") // Only InvoiceDate and TotalCost
+            else if (InvoiceNum is null && InvoiceDate is not null && TotalCost is not null) // Only InvoiceDate and TotalCost
             {
                 query += $" WHERE InvoiceDate = {InvoiceDate} AND TotalCost = {TotalCost}";
             }
-            else if (InvoiceNum != "" && InvoiceDate != "" && TotalCost != "") // All three filters
+            else if (InvoiceNum is not null && InvoiceDate is not null && TotalCost is not null) // All three filters
             {
                 query += $" WHERE InvoiceNum = {InvoiceNum} AND InvoiceDate = {InvoiceDate} AND TotalCost = {TotalCost}";
             }
@@ -57,6 +57,19 @@ namespace InvoiceSystem.Search
 
         }
 
+        public string GetDistinctIDs()
+        {
+            return "SELECT DISTINCT InvoiceNum FROM Invoices";
+        }
 
+        public string GetDistinctDates()
+        {
+            return "SELECT DISTINCT InvoiceDate FROM Invoices";
+        }
+
+        public string GetDistinctTotalCosts()
+        {
+            return "SELECT DISTINCT TotalCost FROM Invoices";
+        }
     }
 }

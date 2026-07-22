@@ -18,35 +18,35 @@ namespace InvoiceSystem.Search
         /// <param name="InvoiceDate"></param>
         /// <param name="TotalCost"></param>
         /// <returns></returns>
-        public string GetInvoices(string InvoiceNum = "", string InvoiceDate = "", string TotalCost = "")
+        public string GetInvoices(string InvoiceNum = null, string InvoiceDate = null, string TotalCost = null)
         {
             string query = "SELECT * FROM Invoices";
 
-            if (InvoiceNum != "" && InvoiceDate == "" && TotalCost == "") // Only InvoiceNum
+            if (InvoiceNum is not null && InvoiceDate is null && TotalCost is null) // Only InvoiceNum
             {
                 query += $" WHERE InvoiceNum = {InvoiceNum}";
             }
-            else if (InvoiceNum == "" && InvoiceDate != "" && TotalCost == "") // Only InvoiceDate
+            else if (InvoiceNum is null && InvoiceDate is not null && TotalCost is null) // Only InvoiceDate
             {
                 query += $" WHERE InvoiceDate = {InvoiceDate}";
             }
-            else if (InvoiceNum == "" && InvoiceDate == "" && TotalCost != "") // Only TotalCost
+            else if (InvoiceNum is null && InvoiceDate is null && TotalCost is not null) // Only TotalCost
             {
                 query += $" WHERE TotalCost = {TotalCost}";
             }
-            else if (InvoiceNum != "" && InvoiceDate != "" && TotalCost == "") // Only InvoiceNum and InvoiceDate 
+            else if (InvoiceNum is not null && InvoiceDate is not null && TotalCost is null) // Only InvoiceNum and InvoiceDate 
             {
                 query += $" WHERE InvoiceNum = {InvoiceNum} AND InvoiceDate = {InvoiceDate}";
             }
-            else if (InvoiceNum != "" && InvoiceDate == "" && TotalCost != "") // Only InvoiceNum and TotalCost
+            else if (InvoiceNum is not null && InvoiceDate is null && TotalCost is not null) // Only InvoiceNum and TotalCost
             {
                 query += $" WHERE InvoiceNum = {InvoiceNum} AND TotalCost = {TotalCost}";
             }
-            else if (InvoiceNum == "" && InvoiceDate != "" && TotalCost != "") // Only InvoiceDate and TotalCost
+            else if (InvoiceNum is null && InvoiceDate is not null && TotalCost is not null) // Only InvoiceDate and TotalCost
             {
                 query += $" WHERE InvoiceDate = {InvoiceDate} AND TotalCost = {TotalCost}";
             }
-            else if (InvoiceNum != "" && InvoiceDate != "" && TotalCost != "") // All three filters
+            else if (InvoiceNum is not null && InvoiceDate is not null && TotalCost is not null) // All three filters
             {
                 query += $" WHERE InvoiceNum = {InvoiceNum} AND InvoiceDate = {InvoiceDate} AND TotalCost = {TotalCost}";
             }

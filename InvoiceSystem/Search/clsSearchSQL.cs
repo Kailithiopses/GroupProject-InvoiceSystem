@@ -9,7 +9,7 @@ namespace InvoiceSystem.Search
 
         // This GetInvoices method has 3 optional parameters. By default, each is set to an empty string.
         // If only one of the filters needs to be applied, such as InvoiceDate, then you simply pass in
-        // an empty string for the other two parameters, i.e. GetInvoices("", "2026-05-03", "");
+        // null for the other two parameters, i.e. GetInvoices(null, "2026-05-03", null);
 
         /// <summary>
         /// Conditionally returns required SQL Query string based on applied filters
@@ -57,6 +57,19 @@ namespace InvoiceSystem.Search
 
         }
 
+        public string GetDistinctIDs()
+        {
+            return "SELECT DISTINCT InvoiceNum FROM Invoices";
+        }
 
+        public string GetDistinctDates()
+        {
+            return "SELECT DISTINCT InvoiceDate FROM Invoices";
+        }
+
+        public string GetDistinctTotalCosts()
+        {
+            return "SELECT DISTINCT TotalCost FROM Invoices";
+        }
     }
 }

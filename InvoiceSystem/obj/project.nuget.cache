@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "jMqqJ7hqGl0=",
+  "dgSpecHash": "y2HxyhjDZPg=",
   "success": true,
   "projectFilePath": "C:\\Users\\conne\\Desktop\\Computer Science\\CS 3280\\Group Assignment\\InvoiceSystem\\InvoiceSystem\\InvoiceSystem.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\conne\\.nuget\\packages\\system.data.oledb\\10.0.10\\system.data.oledb.10.0.10.nupkg.sha512"
+  ],
   "logs": []
 }

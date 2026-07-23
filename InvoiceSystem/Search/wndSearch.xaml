@@ -7,20 +7,25 @@
         mc:Ignorable="d"
         Title="wndSearch" Height="450" Width="800">
     <Grid>
+        <!-- Datagrid that displays the retrieved invoices -->
         <DataGrid x:Name="dgInvoiceDisplay" d:ItemsSource="{d:SampleData ItemCount=5}" Width="Auto" Height="Auto" Margin="36,199,264,35"/>
 
-
+        <!-- Combo box to filter by Invoice ID -->
         <Label Content="Filter by ID" HorizontalAlignment="Left" Margin="86,45,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbInvoiceNumFilter" HorizontalAlignment="Left" Margin="57,92,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="cbInvoiceNumFilter" HorizontalAlignment="Left" Margin="57,92,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged"/>
 
+        <!-- Combo box to filter by Invoice Date -->
         <Label Content="Filter by Date" HorizontalAlignment="Left" Margin="246,45,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbInvoiceDateFilter" HorizontalAlignment="Left" Margin="226,92,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="cbInvoiceDateFilter" HorizontalAlignment="Left" Margin="226,92,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged"/>
 
+        <!-- Combo box to filter by Invoice total cost -->
         <Label Content="Filter by Total Cost" HorizontalAlignment="Left" Margin="400,45,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbInvoiceTotalCostFilter" HorizontalAlignment="Left" Margin="400,92,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnClearFilter" Content="Clear Filter" HorizontalAlignment="Left" Margin="667,133,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnSelectInvoice" Content="Select Invoice" HorizontalAlignment="Left" Margin="667,264,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="667,329,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cbInvoiceTotalCostFilter" HorizontalAlignment="Left" Margin="400,92,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged"/>
+        
+        <!-- Buttons -->
+        <Button x:Name="btnClearFilter" Content="Clear Filter" HorizontalAlignment="Left" Margin="626,88,0,0" VerticalAlignment="Top" Width="100" FontSize="14" Click="btnClearFilter_Click"/>
+        <Button x:Name="btnSelectInvoice" Content="Select Invoice" HorizontalAlignment="Left" Margin="618,217,0,0" VerticalAlignment="Top" Width="100" FontSize="14" Click="btnSelectInvoice_Click"/>
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="618,299,0,0" VerticalAlignment="Top" Width="100" FontSize="14" Click="btnCancel_Click"/>
 
 
     </Grid>

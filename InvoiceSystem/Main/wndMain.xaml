@@ -5,8 +5,71 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InvoiceSystem.Main"
         mc:Ignorable="d"
-        Title="wndMain" Height="450" Width="800">
-    <Grid>
-        
+        Title="Invoice System" Height="600" Width="800">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Menu: "Update Items" opens the Items window (only enabled when not
+             creating/editing an invoice); "Search for Invoice" opens the Search window -->
+        <Menu Grid.Row="0">
+            <MenuItem Header="_File">
+                <MenuItem x:Name="mnuUpdateItems" Header="_Update Items" Click="mnuUpdateItems_Click"/>
+                <MenuItem x:Name="mnuSearchInvoice" Header="_Search for Invoice" Click="mnuSearchInvoice_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- Invoice header: number shows "TBD" until saved, then the AutoNumber value -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,10">
+            <Label Content="Invoice #:" VerticalAlignment="Center"/>
+            <TextBox x:Name="txtInvoiceNum" Width="80" IsReadOnly="True" Text="TBD" Margin="0,0,20,0"/>
+
+            <Label Content="Invoice Date:" VerticalAlignment="Center"/>
+            <DatePicker x:Name="dpInvoiceDate" Width="130" Margin="0,0,20,0"/>
+
+            <Label Content="Total:" VerticalAlignment="Center"/>
+            <TextBox x:Name="txtTotalCost" Width="100" IsReadOnly="True"/>
+        </StackPanel>
+
+        <!-- Item entry: cost defaults from ItemDesc when an item is selected,
+             but the user is allowed to edit it (LineItems.Cost is independent) -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,10">
+            <Label Content="Item:" VerticalAlignment="Center"/>
+            <ComboBox x:Name="cboItems" Width="200" Margin="0,0,20,0"
+                      SelectionChanged="cboItems_SelectionChanged"/>
+
+            <Label Content="Cost:" VerticalAlignment="Center"/>
+            <TextBox x:Name="txtItemCost" Width="80" Margin="0,0,20,0"/>
+
+            <Button x:Name="btnAddItem" Content="Add Item" Width="90" Click="btnAddItem_Click"/>
+        </StackPanel>
+
+        <!-- Line items for the invoice currently displayed -->
+        <DataGrid x:Name="dgInvoiceItems" Grid.Row="3" AutoGenerateColumns="False"
+                  CanUserAddRows="False" IsReadOnly="True" Margin="0,0,0,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Item Code" Binding="{Binding ItemCode}" Width="100"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding ItemDesc}" Width="*"/>
+                <DataGridTextColumn Header="Cost" Binding="{Binding Cost}" Width="100"/>
+                <DataGridTemplateColumn Header="Remove" Width="80">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Delete" Click="btnDeleteLineItem_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="btnNewInvoice" Content="New Invoice" Width="100" Margin="0,0,10,0" Click="btnNewInvoice_Click"/>
+            <Button x:Name="btnEditInvoice" Content="Edit Invoice" Width="100" Margin="0,0,10,0" Click="btnEditInvoice_Click"/>
+            <Button x:Name="btnSaveInvoice" Content="Save Invoice" Width="100" Click="btnSaveInvoice_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

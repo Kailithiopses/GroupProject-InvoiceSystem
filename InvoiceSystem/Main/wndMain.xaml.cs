@@ -22,7 +22,6 @@ namespace InvoiceSystem.Main
         // Instantiate MainLogic class
         private clsMainLogic MainLogic = new clsMainLogic();
 
-        wndSearch wndSearchInvoices = new wndSearch();// REMOVE THIS
 
         // Tracks whether an invoice is currently being created/edited, so
         // "Update Items" on the menu can be disabled while that's true
@@ -95,10 +94,6 @@ namespace InvoiceSystem.Main
             // Reset txtInvoiceNum to "TBD", clear dpInvoiceDate, clear
             // dgInvoiceItems, reset txtTotalCost to 0, unlock editable fields.
 
-            // REMOVE THIS
-            this.Hide();
-            wndSearchInvoices.ShowDialog();
-            this.Show();
         }
 
         /// <summary>

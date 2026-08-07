@@ -109,7 +109,7 @@ namespace InvoiceSystem.Search {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/InvoiceSystem;component/search/wndsearch.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/InvoiceSystem;V1.0.0.0;component/search/wndsearch.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Search\wndSearch.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

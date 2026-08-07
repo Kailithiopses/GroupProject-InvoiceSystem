@@ -7,3 +7,8 @@
          
     </Application.Resources>
 </Application>
+
+
+
+<!--StartupUri="Main/wndMain.xaml" CHANGE THIS BACK AFTER FINISHING DEVELOPMENT OF SEARCH WINDOW-->
+<!--StartupUri="Search/wndSearch.xaml"-->

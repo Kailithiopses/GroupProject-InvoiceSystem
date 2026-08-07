@@ -7,11 +7,6 @@ namespace InvoiceSystem.Search
 {
     internal class clsSearchSQL
     {
-
-        // This GetInvoices method has 3 optional parameters. By default, each is set to null.
-        // If only one of the filters needs to be applied, such as InvoiceDate, then you simply pass in
-        // null for the other two parameters, i.e. GetInvoices(null, "2026-05-03", null);
-
         /// <summary>
         /// Conditionally returns required SQL Query string based on applied filters
         /// </summary>

@@ -127,10 +127,6 @@ namespace InvoiceSystem.Search
             dgInvoiceDisplay.ItemsSource = InvoiceManager.GetInvoices((string)cbInvoiceNumFilter.SelectedItem, (string)cbInvoiceDateFilter.SelectedItem, (string)cbInvoiceTotalCostFilter.SelectedItem);
         }
 
-
-        // sSelectedInvoiceID - Holds the invoice ID if the user selected one, and zero if no invoice selected.
-        // SelectedInvoiceID - Property main window can access to get the selected invoice ID
-
         /// <summary>
         /// Handle logic for user clicking a row in the datagrid
         /// </summary>

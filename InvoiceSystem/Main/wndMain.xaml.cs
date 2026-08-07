@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using InvoiceSystem.Common;
+using InvoiceSystem.Search;
 
 namespace InvoiceSystem.Main
 {
@@ -20,6 +21,7 @@ namespace InvoiceSystem.Main
     {
         // Instantiate MainLogic class
         private clsMainLogic MainLogic = new clsMainLogic();
+
 
         // Tracks whether an invoice is currently being created/edited, so
         // "Update Items" on the menu can be disabled while that's true
@@ -91,6 +93,7 @@ namespace InvoiceSystem.Main
         {
             // Reset txtInvoiceNum to "TBD", clear dpInvoiceDate, clear
             // dgInvoiceItems, reset txtTotalCost to 0, unlock editable fields.
+
         }
 
         /// <summary>

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using InvoiceSystem.Common;
 
 namespace InvoiceSystem.Search
 {
@@ -17,17 +20,52 @@ namespace InvoiceSystem.Search
     /// </summary>
     public partial class wndSearch : Window
     {
+        /// <summary>
+        /// Private variable to hold selected invoice ID
+        /// </summary>
+        private string sSelectedInvoiceID;
 
-        // Instantiate SearchLogic class
+        /// <summary>
+        /// Public property to set private sSelectedInvoiceID
+        /// </summary>
+        public string SelectedInvoiceID 
+        { 
+            get { 
+                return sSelectedInvoiceID; 
+            }
+            set
+            {
+                sSelectedInvoiceID = value;
+            } 
+        }
 
-        // Create a list of invoices populated from the data base
+
+        /// <summary>
+        /// Instance of InvoiceManager class to interact with data from database
+        /// </summary>
+        clsInvoiceManager InvoiceManager = new clsInvoiceManager();
+
+        /// <summary>
+        /// Constructor for search window. Populates datagrid and combo boxes
+        /// </summary>
         public wndSearch()
         {
             InitializeComponent();
-            // Populate the datagrid using the list of invoices
-            // dgInvoiceDisplay.ItemsSource = InvoicesManager.GetInvoices();
+            try
+            {
+                dgInvoiceDisplay.ItemsSource = InvoiceManager.GetInvoices();
 
-            // Populate combo boxes with distinct values for each filter
+                cbInvoiceNumFilter.ItemsSource = InvoiceManager.GetDistinctInvoiceNums();
+                cbInvoiceDateFilter.ItemsSource = InvoiceManager.GetDistinctInvoiceDates();
+                cbInvoiceTotalCostFilter.ItemsSource = InvoiceManager.GetDistinctInvoiceCosts();
+            }
+
+            catch (System.Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+
         }
 
         /// <summary>
@@ -38,6 +76,8 @@ namespace InvoiceSystem.Search
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             // Close this window and return to main menu without setting sSelectedInvoice
+            SelectedInvoiceID = null;
+            this.Hide();
         }
 
         /// <summary>
@@ -47,13 +87,20 @@ namespace InvoiceSystem.Search
         /// <param name="e"></param>
         private void btnSelectInvoice_Click(object sender, RoutedEventArgs e)
         {
-            // This button will be disabled by default. It will only be enabled if the user
-            // has selected an item from the datagrid
-
             // Get the selected item from the datagrid
-            // sSelectedInvoice = dgInvoiceDisplay.SelectedItem
             // Close search window and return to main window
-            
+            clsInvoice selectedRow = dgInvoiceDisplay.SelectedItem as clsInvoice;
+            if (selectedRow is not null)
+            {
+                SelectedInvoiceID = (string)selectedRow.InvoiceNum;
+            }
+
+            // Clear filters
+            cbInvoiceNumFilter.SelectedIndex = -1;
+            cbInvoiceDateFilter.SelectedIndex = -1;
+            cbInvoiceTotalCostFilter.SelectedIndex = -1;
+
+            this.Hide();
         }
 
         /// <summary>
@@ -64,8 +111,9 @@ namespace InvoiceSystem.Search
         private void btnClearFilter_Click(object sender, RoutedEventArgs e)
         {
             // Programmatically change the selected items in all 3 combo boxes to null
-            // comboBox.SelectedIndex = -1; // this should clear the selection from the box, returning null
-            // Selection changed method will automatically call SQL queries to update the datagrid
+            cbInvoiceNumFilter.SelectedIndex = -1;
+            cbInvoiceDateFilter.SelectedIndex = -1;
+            cbInvoiceTotalCostFilter.SelectedIndex = -1;
         }
 
         /// <summary>
@@ -76,12 +124,46 @@ namespace InvoiceSystem.Search
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Call GetInvoices method, pass in the values of each combo box
-            // dgInvoiceDisplay.ItemsSource = GetInvoices(cbInvoiceNumFilter.SelectedItem, cbInvoiceDateFilter.SelectedItem, cbInvoiceTotalCostFilter.SelectedItem)
+            dgInvoiceDisplay.ItemsSource = InvoiceManager.GetInvoices((string)cbInvoiceNumFilter.SelectedItem, (string)cbInvoiceDateFilter.SelectedItem, (string)cbInvoiceTotalCostFilter.SelectedItem);
         }
 
+        /// <summary>
+        /// Handle logic for user clicking a row in the datagrid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgInvoiceDisplay_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Enable select button
+            if (dgInvoiceDisplay.SelectedIndex != -1)
+            {
+                btnSelectInvoice.IsEnabled = true;
+                // Set SelectedInvoiceID to selected item
+            }
+            else if (dgInvoiceDisplay.SelectedIndex == -1)
+            {
+                btnSelectInvoice.IsEnabled = false;
+                // Set SelectedInvoiceID to null
+            }
+        }
 
-        // sSelectedInvoiceID - Holds the invoice ID if the user selected one, and zero if no invoice selected.
-        // SelectedInvoiceID - Property main window can access to get the selected invoice ID
+        /// <summary>
+        /// exception handler that shows the error
+        /// </summary>
+        /// <param name="sClass">the class</param>
+        /// <param name="sMethod">the method</param>
+        /// <param name="sMessage">the error message</param>
+        private void HandleError(string sClass, string sMethod, string sMessage)
+        {
+            try
+            {
+                MessageBox.Show(sClass + "." + sMethod + " -> " + sMessage);
+            }
+            catch (System.Exception ex)
+            {
+                System.IO.File.AppendAllText("C:\\Error.txt", Environment.NewLine + "HandleError Exception: " + ex.Message);
+            }
+        }
 
     }
 }
